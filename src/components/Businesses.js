@@ -1,35 +1,22 @@
 import React from 'react';
+import {connect} from 'react-redux';
+import * as a from '../actions/index';
 
 class Businesses extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      error: null,
-      isLoaded: false,
-      businesses: []
-    }
-  }
-
-  makeApiCall = () => {
-    const proxyurl = "https://cors-anywhere.herokuapp.com/";
-    const url = "https://warm-harbor-14009.herokuapp.com/businesses"
-    fetch(proxyurl + url)
-      .then(response => response.json())
-      .then((jsonResponse) => {
-        console.log("RESPONSE " + jsonResponse)
-        this.setState({
-          isLoaded: true,
-          businesses: jsonResponse
-        })
-      })
   }
 
   componentDidMount() {
-    this.makeApiCall()
+   const {dispatch} = this.props;
+  //  const action1 = a.requestBusinesses();
+  //  dispatch(action1);
+   const action2 = a.makeApiCall();
+   dispatch(action2);
   }
 
   render() {
-    const { error, isLoaded, businesses } = this.state;
+    const { error, isLoaded, businesses } = this.props;
     if (error) {
       return (
         <React.Fragment>
@@ -58,7 +45,14 @@ class Businesses extends React.Component {
       )
     }
   }
-
 }
 
-export default Businesses;
+const mapStateToProps = state => {
+  return {
+    businesses: state.businesses,
+    isLoaded: state.isLoaded,
+    error: state.error
+  }
+}
+
+export default connect(mapStateToProps)(Businesses);
