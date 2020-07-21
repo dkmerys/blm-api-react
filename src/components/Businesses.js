@@ -26,14 +26,14 @@ function Businesses(props) {
     return (
       <React.Fragment>
         <h1>Businesses</h1>
-        <ul>
+        <ol>
           {businesses.map((business, index) =>
             <li key={index}>
               <h3>{business.name}</h3>
               <p>{business.address}</p>
             </li>
           )}
-        </ul>
+        </ol>
       </React.Fragment>
     )
   }
