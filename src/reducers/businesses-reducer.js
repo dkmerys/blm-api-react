@@ -6,10 +6,11 @@ const defaultState = {
   error: null,
   addFormVisible: false,
   editFormVisible: false,
-  selectedTicket: null
+  selectedBusiness: null
 }
 
 export default (state = defaultState, action) => {
+  const { id, name, address, link, category } = action;
   switch (action.type) {
     case c.GET_BUSINESSES_SUCCESS:
       return Object.assign({}, state, {
@@ -28,7 +29,23 @@ export default (state = defaultState, action) => {
     case c.TOGGLE_EDIT_BUSINESS_FORM:
       return Object.assign({}, state, {
         editFormVisible: !state.editFormVisible
+      });
+    case c.SELECT_BUSINESS:
+      if(state.selectedBusiness === null) {
+      return Object.assign({}, state, {
+        selectedBusiness: { 
+          id: id,
+          name: name,
+          address: address,
+          link: link,
+          category: category
+        }
       })
+      } else {
+        return Object.assign({}, state, {
+          selectedBusiness: null
+        })
+      }
     default:
       return state;
     }

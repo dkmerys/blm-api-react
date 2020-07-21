@@ -1,5 +1,6 @@
 import businessesReducer from "../../reducers/businesses-reducer"
 import * as c from './../../actions/ActionTypes';
+import * as a from "./../../actions/index";
 
 describe("businessesReducer", () => {
   const defaultState = {
@@ -8,7 +9,7 @@ describe("businessesReducer", () => {
     error: null,
     addFormVisible: false,
     editFormVisible: false,
-    selectedTicket: null
+    selectedBusiness: null
   }
 
   const loadingState = {
@@ -17,8 +18,16 @@ describe("businessesReducer", () => {
     error: null,
     addFormVisible: false,
     editFormVisible: false,
-    selectedTicket: null
+    selectedBusiness: null
   };
+
+  const business1 = {
+    id: "1",
+    name: "A Heavenly Taste Cafe",
+    address: "4200 NE MLK Jr Blvd, Portland, Or",
+    link: "https://www.facebook.com/AHeavenlyTasteCafe/",
+    category: "Food"
+  }
 
   let action;
 
@@ -30,7 +39,7 @@ describe("businessesReducer", () => {
         error: null,
         addFormVisible: false,
         editFormVisible: false,
-        selectedTicket: null
+        selectedBusiness: null
       }
     )
   })
@@ -48,7 +57,7 @@ describe("businessesReducer", () => {
       error: null,
       addFormVisible: false,
       editFormVisible: false,
-      selectedTicket: null
+      selectedBusiness: null
     });
   });
 
@@ -64,7 +73,7 @@ describe("businessesReducer", () => {
       error: "ERROR",
       addFormVisible: false,
       editFormVisible: false,
-      selectedTicket: null
+      selectedBusiness: null
     })
   });
 
@@ -78,7 +87,7 @@ describe("businessesReducer", () => {
       error: null,
       addFormVisible: true,
       editFormVisible: false,
-      selectedTicket: null
+      selectedBusiness: null
     })
   })
 
@@ -92,8 +101,19 @@ describe("businessesReducer", () => {
       error: null,
       addFormVisible: false,
       editFormVisible: true,
-      selectedTicket: null
+      selectedBusiness: null
     })
   })
-
+  
+  test('select business changes the selectedBusiness to the business object', () => {
+    action = a.selectBusiness(business1);
+    expect(businessesReducer(loadingState, action)).toEqual({
+      isLoaded: false,
+      businesses: [],
+      error: null,
+      addFormVisible: false,
+      editFormVisible: false,
+      selectedBusiness: business1
+    })
+  })
 });

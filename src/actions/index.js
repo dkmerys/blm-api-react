@@ -31,3 +31,21 @@ export const makeApiCall = () => {
 export const toggleNewBusinessForm = () => ({
   type: c.TOGGLE_NEW_BUSINESS_FORM
 })
+
+export const selectBusiness = (business) => {
+  if(business !== null) {
+    const { id, name, address, link, category} = business;
+    return {
+      type: c.SELECT_BUSINESS,
+      id: id,
+      name: name,
+      address: address,
+      link: link,
+      category: category
+    }
+  } else {
+    return {
+      type: c.SELECT_BUSINESS
+    }
+  }
+}
