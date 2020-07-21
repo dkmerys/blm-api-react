@@ -25,6 +25,10 @@ export default (state = defaultState, action) => {
       return Object.assign({}, state, {
         addFormVisible: !state.addFormVisible
       })
+    case c.TOGGLE_EDIT_BUSINESS_FORM:
+      return Object.assign({}, state, {
+        editFormVisible: !state.editFormVisible
+      })
     default:
       return state;
     }

@@ -82,6 +82,18 @@ describe("businessesReducer", () => {
     })
   })
 
-  
+  test('toggle the edit business form will change editFormVisible to true', () => {
+    action = {
+      type: c.TOGGLE_EDIT_BUSINESS_FORM
+    }
+    expect(businessesReducer(loadingState, action)).toEqual({
+      isLoaded: false,
+      businesses: [],
+      error: null,
+      addFormVisible: false,
+      editFormVisible: true,
+      selectedTicket: null
+    })
+  })
 
 });
