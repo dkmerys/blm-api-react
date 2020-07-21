@@ -31,6 +31,7 @@ npm install
 npm run start
 ```
 7. For the error "unexpected token in JSON object at position 0" download the [Moesif Origin & CORS Changer](https://chrome.google.com/webstore/detail/moesif-orign-cors-changer/digfbfaphojjndkpccljibejjbppifbc?hl=en-US) plugin for google chrome. Be sure to enable it by clicking "switch on"
+<!-- ADD INSTRUCTIONS TO DOWNLOAD AND HOST API AT LOCALHOST:3000 -->
 
 ### Known Bugs
 

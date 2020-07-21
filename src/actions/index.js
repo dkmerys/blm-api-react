@@ -19,9 +19,7 @@ export const makeApiCall = () => {
   const url = "http://localhost:3000/businesses/"
   return fetch(url)
     .then(response => response.json())
-    
     .then((jsonResponse) => {
-  
       dispatch(getBusinessesSuccess(jsonResponse))
     })
     .catch((error) => {
@@ -29,3 +27,7 @@ export const makeApiCall = () => {
     })
   }
 }
+
+export const toggleNewBusinessForm = () => ({
+  type: c.TOGGLE_NEW_BUSINESS_FORM
+})

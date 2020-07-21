@@ -3,15 +3,14 @@ import * as c from './../actions/ActionTypes';
 const defaultState = {
   isLoaded: false,
   businesses: [],
-  error: null
+  error: null,
+  addFormVisible: false,
+  editFormVisible: false,
+  selectedTicket: null
 }
 
 export default (state = defaultState, action) => {
   switch (action.type) {
-    case c.REQUEST_BUSINESSES:
-      return Object.assign({}, state, {
-        isLoaded: true
-      });
     case c.GET_BUSINESSES_SUCCESS:
       return Object.assign({}, state, {
         isLoaded: true,
@@ -21,6 +20,10 @@ export default (state = defaultState, action) => {
       return Object.assign({}, state, {
         isLoaded: false,
         error: action.error
+      });
+    case c.TOGGLE_NEW_BUSINESS_FORM:
+      return Object.assign({}, state, {
+        addFormVisible: !state.addFormVisible
       })
     default:
       return state;

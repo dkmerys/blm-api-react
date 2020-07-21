@@ -1,11 +1,11 @@
 import React from 'react';
 import '../App.css';
-import Businesses from './Businesses'
+import BusinessControl from './BusinessControl'
 
 function App() {
   return (
     <React.Fragment>
-      <Businesses />
+      <BusinessControl />
     </React.Fragment>
   );
 }

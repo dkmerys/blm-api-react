@@ -5,13 +5,19 @@ describe("businessesReducer", () => {
   const defaultState = {
     isLoaded: false,
     businesses: [],
-    error: null
+    error: null,
+    addFormVisible: false,
+    editFormVisible: false,
+    selectedTicket: null
   }
 
   const loadingState = {
     isLoaded: false,
     businesses: [],
-    error: null
+    error: null,
+    addFormVisible: false,
+    editFormVisible: false,
+    selectedTicket: null
   };
 
   let action;
@@ -21,24 +27,15 @@ describe("businessesReducer", () => {
       {
         isLoaded: false,
         businesses: [],
-        error: null
+        error: null,
+        addFormVisible: false,
+        editFormVisible: false,
+        selectedTicket: null
       }
     )
   })
 
-  test('requesting business should successfully change isLoaded from false to true', () => {
-    action = {
-      type: c.REQUEST_BUSINESSES
-    };
-
-    expect(businessesReducer(defaultState, action)).toEqual({
-      isLoaded: true,
-      businesses: [],
-      error: null
-    })
-  })
-
-  test('successfully getting businesses should change isLoaded to false', () => {
+  test('successfully getting businesses should change isLoaded to true', () => {
     const businesses = "A business";
     action = {
       type: c.GET_BUSINESSES_SUCCESS,
@@ -46,9 +43,12 @@ describe("businessesReducer", () => {
     };
 
     expect(businessesReducer(loadingState, action)).toEqual({
-      isLoaded: false,
+      isLoaded: true,
       businesses: "A business",
-      error: null
+      error: null,
+      addFormVisible: false,
+      editFormVisible: false,
+      selectedTicket: null
     });
   });
 
@@ -61,7 +61,27 @@ describe("businessesReducer", () => {
     expect(businessesReducer(loadingState, action)).toEqual({
       isLoaded: false,
       businesses: [],
-      error: "ERROR"
+      error: "ERROR",
+      addFormVisible: false,
+      editFormVisible: false,
+      selectedTicket: null
+    })
+  });
+
+  test('successfully toggling the create business form on will change addFormVisible to true', () => {
+    action = {
+      type: c.TOGGLE_NEW_BUSINESS_FORM
+    }
+    expect(businessesReducer(loadingState, action)).toEqual({
+      isLoaded: false,
+      businesses: [],
+      error: null,
+      addFormVisible: true,
+      editFormVisible: false,
+      selectedTicket: null
     })
   })
+
+  
+
 });
