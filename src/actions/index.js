@@ -16,11 +16,12 @@ export const getBusinessesFailure = (error) => ({
 
 export const makeApiCall = () => {
   return dispatch => {
-  const proxyurl = "https://cors-anywhere.herokuapp.com/";
-  const url = "https://warm-harbor-14009.herokuapp.com/businesses"
-  return fetch(proxyurl + url)
+  const url = "http://localhost:3000/businesses/"
+  return fetch(url)
     .then(response => response.json())
+    
     .then((jsonResponse) => {
+  
       dispatch(getBusinessesSuccess(jsonResponse))
     })
     .catch((error) => {
