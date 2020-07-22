@@ -117,31 +117,33 @@ describe("businessesReducer", () => {
     })
   })
 
-  test("addBusiness should add new business to the API", () => {
-    const { name, address, category, link, id } = business1;
-    action = a.addBusiness({
-      name: name,
-      address: address,
-      category: category,
-      link: link,
-      id: id
-    })
+  // REFACTORED TO CONTACT API
 
-    expect(businessesReducer(defaultState, action)).toEqual({
-      isLoaded: false,
-      businesses: {
-        [id]: {
-          name: name,
-          address: address,
-          category: category,
-          link: link,
-          id: id
-        }
-      },
-      error: null,
-      addFormVisible: false,
-      editFormVisible: false,
-      selectedBusiness: null
-    })
-  })
+  // test("addBusiness should add new business to the API", () => {
+  //   const { name, address, category, link, id } = business1;
+  //   action = a.addBusiness({
+  //     name: name,
+  //     address: address,
+  //     category: category,
+  //     link: link,
+  //     id: id
+  //   })
+
+  //   expect(businessesReducer(defaultState, action)).toEqual({
+  //     isLoaded: false,
+  //     businesses: {
+  //       [id]: {
+  //         name: name,
+  //         address: address,
+  //         category: category,
+  //         link: link,
+  //         id: id
+  //       }
+  //     },
+  //     error: null,
+  //     addFormVisible: false,
+  //     editFormVisible: false,
+  //     selectedBusiness: null
+  //   })
+  // })
 });

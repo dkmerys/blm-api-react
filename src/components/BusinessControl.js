@@ -9,54 +9,88 @@ import BusinessDetail from "./BusinessDetail";
 
 function BusinessControl (props) {
   let currentlyVisibleState = null;
-  let buttonText = null
-  const { newBusinessFormVisible, editBusinessFormVisible, selectedBusiness } = props;
-
-  const [visibleForm, setForm] = useState(false);
-  const [editing, setEditing] = useState(false);
-  const [selectedBusinessId, setSelectedBusiness] = useState(null)
+  let buttonText = null;
+  let navButton = null;
+  let navButton2 = null;
+  const { addFormVisible, editFormVisible, selectedBusiness } = props;
 
   function returnToList(){
-    if(selectedBusinessId !== null) {
-      setSelectedBusiness(null);
-      setEditing(false);
-      setForm(false);
-    } else {
-      setForm(visibleForm);
-    }
+    
+  //   if(selectedBusiness !== null) {
+  //     setSelectedBusiness(null);
+  //     setEditing(false);
+  //     setForm(false);
+  //   } else {
+  //     setForm(visibleForm);
+  //   }
   }
+
+  const handleShowNewBusinessForm = (newBusiness) => {
+    const { dispatch } = props;
+    const action = a.toggleNewBusinessForm();
+    dispatch(action);
+  }
+
+  const handleShowEditBusinessForm = (editBusiness) => {
+    const { dispatch } = props;
+    const action = a.toggleEditBusinessForm();
+    dispatch(action);
+  }
+
+
+  const handleAddingBusiness = (newBusiness) => {
+    handleShowNewBusinessForm();
+    console.log("YOU ARE IN THE HANDLE ADDING NEW BUSINESS FUNCTION BEFORE THE API FUNCTION IS CALLED")
+    const { dispatch } = props;
+    const action = a.addBusinessToApi(newBusiness);
+    dispatch(action);
+  }
+
+  const handleEditingBusiness = (businessToBeEdited) => {
+    handleShowEditBusinessForm();
+    const { dispatch } = props;
+    const action = a.editBusiness(businessToBeEdited);
+    dispatch(action);
+  }
+  // NOT ADDING TO API YET
   
-  if (editBusinessFormVisible === true){ 
+  if (editFormVisible){ 
     currentlyVisibleState = <EditBusinessForm
-                              editing={editing}
-                              setEditing={setEditing}
-                              visibleForm={visibleForm}
-                              setForm={setForm}
-                              selectedBusiness={selectedBusinessId} />
+                              // editing={editing}
+                              // setEditing={setEditing}
+                              // visibleForm={visibleForm}
+                              // setForm={setForm}
+                              handleEditingBusiness={handleEditingBusiness}/>
     buttonText = "Return to Business List"
-  } else if (selectedBusinessId !== null){
-    currentlyVisibleState = <BusinessDetail
-                            setSelectedBusiness={setSelectedBusiness}
-                            selectedBusiness={selectedBusinessId}
-                            editing={editing}
-                            setEditing={setEditing} />
+    navButton =  <button onClick={ () => returnToList()}>{buttonText}</button>
+  } else if (selectedBusiness !== null){
+    currentlyVisibleState = <BusinessDetail />
+                            // setSelectedBusiness={setSelectedBusiness}
+                            // selectedBusiness={selectedBusiness}
+                            // editing={editing}
+                            // setEditing={setEditing} />
     buttonText = "Return to Business List"
-  } else if (visibleForm === true){
+    navButton =  <button onClick={ () => returnToList()}>{buttonText}</button>
+  } else if (addFormVisible){
     currentlyVisibleState = <NewBusinessForm
-                            setForm={setForm}
-                            visibleForm={visibleForm} />
+                            // setForm={setForm}
+                            // visibleForm={visibleForm} 
+                            handleAddingBusiness={handleAddingBusiness}/>
     buttonText = "View Businesses"
+    navButton =  <button onClick={ () => returnToList()}>{buttonText}</button>
   } else {
     currentlyVisibleState = <Businesses 
-                            setSelectedBusiness={setSelectedBusiness}
-                            selectedBusiness={selectedBusinessId} />
+                            // setSelectedBusiness={setSelectedBusiness}
+                            selectedBusiness={selectedBusiness} />
     buttonText = "Add Business"
+    navButton =  <button onClick={ () => handleShowNewBusinessForm()}>{buttonText}</button>
+    navButton2 =  <button onClick={ () => handleShowEditBusinessForm()}>Edit Business</button>
   }
 
   return (
-    <React.Fragment>
-      <button onClick={ () => returnToList()}>{buttonText}</button>
-      <button onClick={ () => a.toggleNewBusinessForm()}>Add a Business</button>
+    <React.Fragment> 
+      {navButton}
+      {navButton2}
       {currentlyVisibleState}     
     </React.Fragment>
   )
@@ -65,8 +99,8 @@ function BusinessControl (props) {
 
 const mapStateToProps = state => {
   return{
-    newBusinessFormVisible: state.newBusinessFormVisible,
-    editBusinessFormVisible: state.editBusinessFormVisible,
+    addFormVisible: state.addFormVisible,
+    editFormVisible: state.editFormVisible,
     selectedBusiness: state.selectedBusiness
   }
 }

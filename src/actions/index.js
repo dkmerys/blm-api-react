@@ -32,6 +32,10 @@ export const toggleNewBusinessForm = () => ({
   type: c.TOGGLE_NEW_BUSINESS_FORM
 })
 
+export const toggleEditBusinessForm = () => ({
+  type: c.TOGGLE_EDIT_BUSINESS_FORM
+})
+
 export const selectBusiness = (business) => {
   if(business !== null) {
     const { id, name, address, link, category} = business;
@@ -50,7 +54,25 @@ export const selectBusiness = (business) => {
   }
 }
 
-export const addBusiness = (business) => {
+export const addBusinessToApi = (business) => {
+  const { name, address, category, link, id } = business;
+  console.log("YOU ARE IN THE API FUNCTION IN ACTIONS");
+  console.log("NAME OF BUSINESS " + name)
+  return dispatch => {
+  const url = `http://localhost:3000/businesses?name=${name}&address=${address}&link=${link}&category=${category}`
+
+  return fetch(url, {method: "POST"})
+    .then(response => response.json())
+    .then((jsonResponse) => {
+      console.log("POST SUCCESS: "+ Object.entries(jsonResponse))
+    })
+    .catch((error) => {
+      console.log("POST ERROR: " + error)
+    })
+  }
+}
+
+export const editBusiness = (business) => {
   const { name, address, category, link, id } = business;
   return {
     type: c.ADD_BUSINESS,

@@ -46,18 +46,18 @@ export default (state = defaultState, action) => {
           selectedBusiness: null
         })
       }
-    case c.ADD_BUSINESS:
-      return Object.assign({}, state, {
-        businesses: {
-          [id]: { 
-            id: id,
-            name: name,
-            address: address,
-            link: link,
-            category: category
-          }
-        }
-      })
+    // case c.ADD_BUSINESS:
+    //   return Object.assign({}, state, {
+    //     businesses: {
+    //       [id]: { 
+    //         id: id,
+    //         name: name,
+    //         address: address,
+    //         link: link,
+    //         category: category
+    //       }
+    //     }
+    //   })
     default:
       return state;
     }
