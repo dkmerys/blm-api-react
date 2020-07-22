@@ -52,7 +52,12 @@ function BusinessControl (props) {
     const action = a.editBusiness(businessToBeEdited);
     dispatch(action);
   }
-  // NOT ADDING TO API YET
+ 
+  const handleSelectingBusiness = (selectedBusiness) => {
+    const {dispatch} = props;
+    const action = a.selectBusiness(selectedBusiness);
+    dispatch(action);
+  }
   
   if (editFormVisible){ 
     currentlyVisibleState = <EditBusinessForm
@@ -64,11 +69,9 @@ function BusinessControl (props) {
     buttonText = "Return to Business List"
     navButton =  <button onClick={ () => returnToList()}>{buttonText}</button>
   } else if (selectedBusiness !== null){
-    currentlyVisibleState = <BusinessDetail />
-                            // setSelectedBusiness={setSelectedBusiness}
-                            // selectedBusiness={selectedBusiness}
-                            // editing={editing}
-                            // setEditing={setEditing} />
+    currentlyVisibleState = <BusinessDetail 
+                              business={selectedBusiness}
+                              handleEditingBusiness={handleEditingBusiness}/>
     buttonText = "Return to Business List"
     navButton =  <button onClick={ () => returnToList()}>{buttonText}</button>
   } else if (addFormVisible){
@@ -80,8 +83,7 @@ function BusinessControl (props) {
     navButton =  <button onClick={ () => returnToList()}>{buttonText}</button>
   } else {
     currentlyVisibleState = <Businesses 
-                            // setSelectedBusiness={setSelectedBusiness}
-                            selectedBusiness={selectedBusiness} />
+                            handleSelectingBusiness = {handleSelectingBusiness} />
     buttonText = "Add Business"
     navButton =  <button onClick={ () => handleShowNewBusinessForm()}>{buttonText}</button>
     navButton2 =  <button onClick={ () => handleShowEditBusinessForm()}>Edit Business</button>

@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import {connect} from 'react-redux';
 import * as a from '../actions/index';
+import Business from "./Business";
 
 function Businesses(props) {
   useEffect(() => {
@@ -9,7 +10,7 @@ function Businesses(props) {
    dispatch(action);
   }, [])
 
-  const { error, isLoaded, businesses } = props;
+  const { error, isLoaded, businesses, handleSelectingBusiness } = props;
   if (error) {
     return (
       <React.Fragment>
@@ -26,14 +27,12 @@ function Businesses(props) {
     return (
       <React.Fragment>
         <h1>Businesses</h1>
-        <ol>
-          {businesses.map((business, index) =>
-            <li key={index}>
-              <h3>{business.name}</h3>
-              <p>{business.address}</p>
-            </li>
-          )}
-        </ol>
+          {businesses.map((business, index) => {
+            return <Business
+              key={index}
+              handleSelectingBusiness = {handleSelectingBusiness}
+              business = {business} />
+            })}
       </React.Fragment>
     )
   }
