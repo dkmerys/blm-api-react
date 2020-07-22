@@ -45,17 +45,19 @@ function BusinessControl (props) {
     currentlyVisibleState = <NewBusinessForm
                             setForm={setForm}
                             visibleForm={visibleForm} />
+    buttonText = "View Businesses"
   } else {
     currentlyVisibleState = <Businesses 
                             setSelectedBusiness={setSelectedBusiness}
                             selectedBusiness={selectedBusinessId} />
-    buttonText = "Refresh"
+    buttonText = "Add Business"
   }
 
   return (
     <React.Fragment>
-      {currentlyVisibleState}
       <button onClick={ () => returnToList()}>{buttonText}</button>
+      <button onClick={ () => a.toggleNewBusinessForm()}>Add a Business</button>
+      {currentlyVisibleState}     
     </React.Fragment>
   )
 

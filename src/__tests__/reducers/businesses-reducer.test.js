@@ -5,7 +5,7 @@ import * as a from "./../../actions/index";
 describe("businessesReducer", () => {
   const defaultState = {
     isLoaded: false,
-    businesses: [],
+    businesses: {},
     error: null,
     addFormVisible: false,
     editFormVisible: false,
@@ -14,7 +14,7 @@ describe("businessesReducer", () => {
 
   const loadingState = {
     isLoaded: false,
-    businesses: [],
+    businesses: {},
     error: null,
     addFormVisible: false,
     editFormVisible: false,
@@ -35,7 +35,7 @@ describe("businessesReducer", () => {
     expect(businessesReducer(defaultState, {type: null})).toEqual(
       {
         isLoaded: false,
-        businesses: [],
+        businesses: {},
         error: null,
         addFormVisible: false,
         editFormVisible: false,
@@ -69,7 +69,7 @@ describe("businessesReducer", () => {
     }
     expect(businessesReducer(loadingState, action)).toEqual({
       isLoaded: false,
-      businesses: [],
+      businesses: {},
       error: "ERROR",
       addFormVisible: false,
       editFormVisible: false,
@@ -83,7 +83,7 @@ describe("businessesReducer", () => {
     }
     expect(businessesReducer(loadingState, action)).toEqual({
       isLoaded: false,
-      businesses: [],
+      businesses: {},
       error: null,
       addFormVisible: true,
       editFormVisible: false,
@@ -97,7 +97,7 @@ describe("businessesReducer", () => {
     }
     expect(businessesReducer(loadingState, action)).toEqual({
       isLoaded: false,
-      businesses: [],
+      businesses: {},
       error: null,
       addFormVisible: false,
       editFormVisible: true,
@@ -109,11 +109,39 @@ describe("businessesReducer", () => {
     action = a.selectBusiness(business1);
     expect(businessesReducer(loadingState, action)).toEqual({
       isLoaded: false,
-      businesses: [],
+      businesses: {},
       error: null,
       addFormVisible: false,
       editFormVisible: false,
       selectedBusiness: business1
+    })
+  })
+
+  test("addBusiness should add new business to the API", () => {
+    const { name, address, category, link, id } = business1;
+    action = a.addBusiness({
+      name: name,
+      address: address,
+      category: category,
+      link: link,
+      id: id
+    })
+
+    expect(businessesReducer(defaultState, action)).toEqual({
+      isLoaded: false,
+      businesses: {
+        [id]: {
+          name: name,
+          address: address,
+          category: category,
+          link: link,
+          id: id
+        }
+      },
+      error: null,
+      addFormVisible: false,
+      editFormVisible: false,
+      selectedBusiness: null
     })
   })
 });

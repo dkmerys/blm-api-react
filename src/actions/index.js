@@ -49,3 +49,15 @@ export const selectBusiness = (business) => {
     }
   }
 }
+
+export const addBusiness = (business) => {
+  const { name, address, category, link, id } = business;
+  return {
+    type: c.ADD_BUSINESS,
+    id: id,
+    name: name,
+    address: address,
+    link: link,
+    category: category
+  }
+}
